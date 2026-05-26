@@ -2,9 +2,13 @@
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    QMainWindow *mw = new QMainWindow(0, Qt::Window);
-    mw->setWindowTitle("Hello, Qt5");
-    mw->resize(400, 300);
-    mw->show();
+    QWidget window;
+    window.resize(200, 120);
+    window.setWindowTitle("Button");
+    QPushButton quit("Quit", &window);
+    quit.setFont(QFont("Times", 18, QFont::Bold));
+    quit.setGeometry(10, 40, 180, 40);
+    QObject::connect(&quit, SIGNAL(clicked()), &app, SLOT(quit()));
+    window.show();
     return app.exec();
 }
