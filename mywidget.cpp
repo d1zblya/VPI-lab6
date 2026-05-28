@@ -3,12 +3,14 @@
 MyWidget::~MyWidget() {}
 
 void MyWidget::slotSqua() {
-    double d;
-    QString tmp;
-    d = line1->text().toDouble();
-    d = d * d;
-    labsign->setText("");
-    line2->setText(tmp.setNum(d));
+    QString str = line1->text();
+    if (str.length() >= 2) {
+        QChar first = str[0];
+        QChar last = str[str.length() - 1];
+        str[0] = last;
+        str[str.length() - 1] = first;
+    }
+    line2->setText(str);
 }
 
 void MyWidget::slotClear() {
@@ -22,10 +24,10 @@ MyWidget::MyWidget() {
 
     line1 = new QLineEdit(this);
     line2 = new QLineEdit(this);
-    bsqua = new QPushButton("*", this);
+    bsqua = new QPushButton("swap", this);
     bclear = new QPushButton("C", this);
     labsign = new QLabel("", this);
-    labis = new QLabel("^2=", this);
+    labis = new QLabel("=>", this);
 
     line1->move(60, 30);
     line1->resize(70, 20);
@@ -36,7 +38,7 @@ MyWidget::MyWidget() {
     line2->setReadOnly(true);
 
     bsqua->move(70, 80);
-    bsqua->resize(50, 50);
+    bsqua->resize(65, 60);
     bclear->move(190, 80);
     bclear->resize(50, 50);
 
